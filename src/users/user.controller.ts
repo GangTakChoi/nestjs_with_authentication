@@ -2,11 +2,11 @@ import {
   Body,
   Controller,
   Get,
-  HttpStatus,
   Param,
   ParseIntPipe,
   Post,
 } from '@nestjs/common';
+import { Public } from 'src/auth/auth.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
@@ -20,6 +20,7 @@ export class UserController {
     return this.userService.getUserAll();
   }
 
+  @Public()
   @Get(':id')
   getOne(
     @Param('id', ParseIntPipe)
