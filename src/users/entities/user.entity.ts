@@ -4,26 +4,32 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
+  Generated,
 } from 'typeorm';
+import { Order } from 'src/order/entities/order.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ unique: true })
+  accountId: string;
+
+  @Column({ unique: true })
+  nickname: string;
+
   @Column()
-  name: string;
+  password: string;
 
-  @Column({ type: 'int', nullable: true })
-  birth_year: number;
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[];
 
-  @CreateDateColumn({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
-  created_at: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-  @UpdateDateColumn({
-    type: 'datetime',
-    default: () => 'CURRENT_TIMESTAMP',
-    onUpdate: 'CURRENT_TIMESTAMP',
-  })
-  updated_at: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

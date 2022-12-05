@@ -9,6 +9,7 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
+      - /app/node_modules
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: root
@@ -24,6 +25,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: rnt123
       MYSQL_DATABASE: find_pet
+      TZ: Asia/Seoul
 
 volumes:
   find-pet_mysql-data:
