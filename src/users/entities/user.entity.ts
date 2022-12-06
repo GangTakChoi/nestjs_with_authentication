@@ -5,10 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  Generated,
 } from 'typeorm';
 import { Order } from 'src/order/entities/order.entity';
-import { Exclude } from 'class-transformer';
+import { Role } from 'src/auth/role/role.enum';
+import { UserRole } from './user-role.entity';
 
 @Entity()
 export class User {
@@ -21,11 +21,17 @@ export class User {
   @Column({ unique: true })
   nickname: string;
 
-  @Column()
+  @Column({ select: false })
   password: string;
 
   @OneToMany(() => Order, (order) => order.user)
   orders: Order[];
+
+  @OneToMany(() => UserRole, (userRole) => userRole.user, {
+    eager: true,
+    cascade: true,
+  })
+  roles: Role[];
 
   @CreateDateColumn()
   createdAt: Date;

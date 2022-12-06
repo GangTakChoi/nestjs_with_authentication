@@ -21,6 +21,7 @@ export class Order {
 
   @ManyToOne(() => User, (user) => user.orders, {
     nullable: false,
+    onDelete: 'CASCADE',
   })
   user: User;
 

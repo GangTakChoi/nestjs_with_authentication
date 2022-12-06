@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrderModule } from './order/order.module';
 import { UserModule } from './users/user.module';
 import { AuthModule } from './auth/auth.module';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AuthModule } from './auth/auth.module';
       database: process.env.MYSQL_DB,
       synchronize: true,
       autoLoadEntities: true,
+      namingStrategy: new SnakeNamingStrategy(),
     }),
     OrderModule,
     UserModule,
