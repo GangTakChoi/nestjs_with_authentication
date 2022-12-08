@@ -64,7 +64,15 @@ export class UserService {
     return this.userRepository.findOneBy({ id: user.id });
   }
 
-  async delete(id: number) {
+  softDelete(id: number) {
+    this.userRepository.softDelete(id);
+  }
+
+  delete(id: number) {
     this.userRepository.delete(id);
+  }
+
+  restore(id: number) {
+    this.userRepository.restore(id);
   }
 }

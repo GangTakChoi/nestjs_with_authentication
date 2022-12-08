@@ -11,8 +11,6 @@ import {
 } from '@nestjs/common';
 // import { Public } from 'src/auth/auth.decorator';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { Role } from 'src/auth/role/role.enum';
-import { Roles } from 'src/auth/role/roles.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
@@ -49,6 +47,6 @@ export class UserController {
 
   @Delete(':id')
   deleteUser(@Param('id') id: number) {
-    return this.userService.delete(id);
+    return this.userService.softDelete(id);
   }
 }
