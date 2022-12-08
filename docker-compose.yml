@@ -3,7 +3,7 @@ version: "3.7"
 services:
   app:
     image: node:14-alpine
-    command: sh -c "npm install && npm run start:dev"
+    command: sh -c "apk add tzdata && npm install && npm run start:dev"
     ports:
       - 3000:3000
     working_dir: /app
@@ -11,6 +11,7 @@ services:
       - ./:/app
       - /app/node_modules
     environment:
+      TZ: Asia/Seoul
       MYSQL_HOST: mysql
       MYSQL_USER: root
       MYSQL_PASSWORD: rnt123
