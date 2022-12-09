@@ -1,8 +1,8 @@
 {
-  "name": "find_pet",
+  "name": "nestjs_with_authentication",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Authorize with role, Authenticate with jwt, Build automatically develop environment with docker compose, Display log into console using morgan",
+  "author": "chlrkdxkr@gmail.com",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

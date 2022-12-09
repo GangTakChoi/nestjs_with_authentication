@@ -12,17 +12,7 @@ import { UserService } from './user.service';
 @Module({
   imports: [TypeOrmModule.forFeature([User, UserRole])],
   controllers: [UserController],
-  providers: [
-    UserService,
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: JwtAuthGuard,
-    // },
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,
-    },
-  ],
+  providers: [UserService],
   exports: [UserService],
 })
 export class UserModule {}

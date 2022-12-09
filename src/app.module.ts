@@ -1,12 +1,14 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { OrderModule } from './order/order.module';
-import { UserModule } from './users/user.module';
+import { OrderModule } from './domains/order/order.module';
+import { UserModule } from './domains/users/user.module';
 import { AuthModule } from './auth/auth.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
-import { LoggerMiddleware } from './middleware/logger.middleware';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { RolesGuard } from './auth/role/roles.guard';
 
 @Module({
   imports: [
@@ -26,6 +28,16 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}

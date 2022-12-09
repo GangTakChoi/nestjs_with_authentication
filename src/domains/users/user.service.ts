@@ -37,6 +37,19 @@ export class UserService {
       .getOne();
   }
 
+  async getRoles(id: number) {
+    const userRole = await this.userRepository.findOne({
+      select: {
+        roles: true,
+      },
+      where: {
+        id,
+      },
+    });
+
+    return userRole.roles.map((userRole) => userRole.role);
+  }
+
   getOne(findOption?: object): Promise<User> {
     return this.userRepository.findOneBy(findOption);
   }
@@ -47,7 +60,7 @@ export class UserService {
     return false;
   }
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto, isAdmin = false) {
     // 아이디 중복체크
     if (!(await this.getIsUniqueAccountId(createUserDto.accountId))) {
       throw new ConflictException('중복된 아이디입니다.');
@@ -59,7 +72,10 @@ export class UserService {
     );
 
     const user = await this.userRepository.save(createUserDto);
-    await this.userRoleRepository.save({ user, role: Role.User });
+    await this.userRoleRepository.save({
+      user,
+      role: isAdmin ? Role.Admin : Role.User,
+    });
 
     return this.userRepository.findOneBy({ id: user.id });
   }

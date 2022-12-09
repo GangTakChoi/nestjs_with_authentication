@@ -7,7 +7,7 @@ import {
   OneToMany,
   DeleteDateColumn,
 } from 'typeorm';
-import { Order } from 'src/order/entities/order.entity';
+import { Order } from 'src/domains/order/entities/order.entity';
 import { Role } from 'src/auth/role/role.enum';
 import { UserRole } from './user-role.entity';
 
@@ -32,7 +32,7 @@ export class User {
     eager: true,
     cascade: true,
   })
-  roles: Role[];
+  roles: UserRole[];
 
   @CreateDateColumn()
   createdAt: Date;
