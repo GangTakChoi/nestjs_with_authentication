@@ -25,14 +25,14 @@ export class UserService {
   }
 
   getUserAll(findOption?: object): Promise<User[]> {
-    // return this.userRepository.createQueryBuilder('user').getMany();
     return this.userRepository.find(findOption);
   }
 
   getOneIncludedPassword(accountId: string) {
+    console.log('getOneIncludedPassword');
     return this.userRepository
       .createQueryBuilder('user')
-      .where('user.account_id = :accountId', { accountId })
+      .where('user.accountId = :accountId', { accountId })
       .addSelect('user.password')
       .getOne();
   }

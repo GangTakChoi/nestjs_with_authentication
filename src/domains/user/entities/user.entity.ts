@@ -8,8 +8,8 @@ import {
   DeleteDateColumn,
 } from 'typeorm';
 import { Order } from 'src/domains/order/entities/order.entity';
-import { Role } from 'src/auth/role/role.enum';
 import { UserRole } from './user-role.entity';
+import { Product } from 'src/domains/product/entities/product.entity';
 
 @Entity()
 export class User {
@@ -27,6 +27,9 @@ export class User {
 
   @OneToMany(() => Order, (order) => order.user)
   orders: Order[];
+
+  @OneToMany(() => Product, (product) => product.user)
+  products: Product[];
 
   @OneToMany(() => UserRole, (userRole) => userRole.user, {
     eager: true,

@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrderModule } from './domains/order/order.module';
-import { UserModule } from './domains/users/user.module';
+import { UserModule } from './domains/user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { APP_GUARD } from '@nestjs/core';
